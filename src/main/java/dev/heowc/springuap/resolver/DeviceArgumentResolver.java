@@ -4,7 +4,7 @@ import org.springframework.core.MethodParameter;
 import ua_parser.Device;
 import ua_parser.Parser;
 
-public class DeviceArgumentResolver extends AbstractUapArgumentResolver{
+public class DeviceArgumentResolver extends AbstractUapArgumentResolver<Device> {
 
     public DeviceArgumentResolver(Parser parser) {
         super(parser);
@@ -16,7 +16,7 @@ public class DeviceArgumentResolver extends AbstractUapArgumentResolver{
     }
 
     @Override
-    Object parse(String userAgent) {
+    Device parse(String userAgent) {
         return parser().parseDevice(userAgent);
     }
 }

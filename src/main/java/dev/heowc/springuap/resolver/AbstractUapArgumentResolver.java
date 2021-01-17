@@ -7,11 +7,11 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import ua_parser.Parser;
 
-public abstract class AbstractUapArgumentResolver implements HandlerMethodArgumentResolver {
+abstract class AbstractUapArgumentResolver<T> implements HandlerMethodArgumentResolver {
 
     private final Parser parser;
 
-    public AbstractUapArgumentResolver(Parser parser) {
+    AbstractUapArgumentResolver(Parser parser) {
         this.parser = parser;
     }
 
@@ -19,10 +19,9 @@ public abstract class AbstractUapArgumentResolver implements HandlerMethodArgume
         return parser;
     }
 
-    abstract Object parse(String userAgent);
-
     @Override
-    public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) {
+    public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer,
+                                  NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) {
         final String userAgent = nativeWebRequest.getHeader("User-Agent");
         if (userAgent == null) {
             return null;
@@ -30,4 +29,6 @@ public abstract class AbstractUapArgumentResolver implements HandlerMethodArgume
 
         return parse(userAgent);
     }
+
+    abstract T parse(String userAgent);
 }

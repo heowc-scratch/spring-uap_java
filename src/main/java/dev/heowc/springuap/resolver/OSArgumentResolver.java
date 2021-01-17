@@ -4,7 +4,7 @@ import org.springframework.core.MethodParameter;
 import ua_parser.OS;
 import ua_parser.Parser;
 
-public class OSArgumentResolver extends AbstractUapArgumentResolver {
+public class OSArgumentResolver extends AbstractUapArgumentResolver<OS> {
 
     public OSArgumentResolver(Parser parser) {
         super(parser);
@@ -16,7 +16,7 @@ public class OSArgumentResolver extends AbstractUapArgumentResolver {
     }
 
     @Override
-    Object parse(String userAgent) {
+    OS parse(String userAgent) {
         return parser().parseOS(userAgent);
     }
 }
